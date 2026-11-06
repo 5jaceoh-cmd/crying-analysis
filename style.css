@@ -1,0 +1,404 @@
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #6f6d68;
+  --grid: #e1e0d9;
+  --baseline: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.10);
+  --wash: rgba(11, 11, 11, 0.05);
+  --warning-bg: #fdf0d2;
+  --series-cry: #2a78d6;
+  --series-bigCry: #eb6834;
+  --series-feed: #1baf7a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --text-primary: #f0efec;
+    --text-secondary: #c3c2b7;
+    --text-muted: #989690;
+    --grid: #2c2c2a;
+    --baseline: #383835;
+    --border: rgba(255, 255, 255, 0.10);
+    --wash: rgba(255, 255, 255, 0.07);
+    --warning-bg: #3a2c0c;
+    --series-cry: #3987e5;
+    --series-bigCry: #d95926;
+    --series-feed: #199e70;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --text-primary: #f0efec;
+  --text-secondary: #c3c2b7;
+  --text-muted: #989690;
+  --grid: #2c2c2a;
+  --baseline: #383835;
+  --border: rgba(255, 255, 255, 0.10);
+  --wash: rgba(255, 255, 255, 0.07);
+  --warning-bg: #3a2c0c;
+  --series-cry: #3987e5;
+  --series-bigCry: #d95926;
+  --series-feed: #199e70;
+}
+
+[data-type="cry"] { --series: var(--series-cry); }
+[data-type="bigCry"] { --series: var(--series-bigCry); }
+[data-type="feed"] { --series: var(--series-feed); }
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text-primary);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  word-break: keep-all;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding:
+    max(24px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right))
+    calc(96px + env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
+}
+
+h1 { margin: 0 0 16px; font-size: 24px; line-height: 1.3; }
+h2 { margin: 0 0 16px; font-size: 18px; line-height: 1.3; }
+
+h3 {
+  margin: 16px 0 4px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.card {
+  margin-bottom: 16px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+input {
+  min-height: 44px;
+  padding: 8px 10px;
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--baseline);
+  border-radius: 8px;
+  font: inherit;
+}
+
+button {
+  color: var(--text-primary);
+  font: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible,
+svg:focus-visible {
+  outline: 2px solid var(--series-cry);
+  outline-offset: 2px;
+}
+
+.ghost-button {
+  min-height: 44px;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.ghost-button:hover { background: var(--wash); }
+
+.swatch {
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--series);
+}
+
+/* 기록 입력 */
+
+.when {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.when input { width: 100%; }
+
+.record-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.record-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 64px;
+  padding: 8px;
+  background: var(--surface);
+  border: 1px solid var(--baseline);
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.record-buttons button:hover { background: var(--wash); }
+.record-buttons button:active { transform: translateY(1px); }
+
+/* 조회 기간 */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px 16px;
+}
+
+.presets { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.presets button {
+  min-height: 44px;
+  padding: 8px 12px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.presets button:hover { background: var(--wash); }
+
+.presets button[aria-pressed="true"] {
+  border-color: var(--baseline);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.range {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1 1 280px;
+  gap: 12px;
+}
+
+.range input { width: 100%; }
+
+.range-summary {
+  margin: 12px 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* 요약 */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tile {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.tile-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.tile-value { font-size: 24px; font-weight: 600; line-height: 1.4; }
+.tile-peak { color: var(--text-secondary); font-size: 13px; }
+
+/* 차트 */
+
+.chart-wrap { position: relative; }
+
+#chart { width: 100%; }
+
+#chart svg {
+  display: block;
+  touch-action: pan-y;
+  border-radius: 4px;
+}
+
+#chart text { font-family: inherit; }
+
+.grid { stroke: var(--grid); stroke-width: 1; }
+.baseline { stroke: var(--baseline); stroke-width: 1; }
+.axis-label { fill: var(--text-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.row-title { fill: var(--text-primary); font-size: 13px; font-weight: 600; }
+.row-swatch, .bar { fill: var(--series); }
+.peak-label { fill: var(--text-primary); font-size: 12px; font-weight: 600; }
+.hour-band { fill: var(--wash); }
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  min-width: 128px;
+  padding: 8px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.tooltip-title { margin-bottom: 4px; color: var(--text-secondary); }
+
+.tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+}
+
+.tooltip-row strong { color: var(--text-primary); font-variant-numeric: tabular-nums; }
+
+.line-key {
+  flex: none;
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--series);
+}
+
+/* 표 */
+
+.table-view { margin-top: 12px; }
+
+.table-view summary {
+  padding: 10px 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+th, td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--grid);
+  text-align: right;
+}
+
+th:first-child { text-align: left; font-weight: 400; }
+thead th { color: var(--text-secondary); font-weight: 600; }
+.peak-cell { font-weight: 700; }
+
+/* 기록 목록 */
+
+#record-list ul { margin: 0; padding: 0; list-style: none; }
+
+#record-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--grid);
+}
+
+.record-time { width: 52px; font-variant-numeric: tabular-nums; }
+.record-label { flex: 1; min-width: 0; }
+
+.empty { margin: 8px 0; color: var(--text-secondary); font-size: 14px; }
+
+.warning {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  background: var(--warning-bg);
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+/* 알림 */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 10px 16px;
+  background: var(--text-primary);
+  color: var(--surface);
+  border-radius: 10px;
+  font-size: 14px;
+  transform: translateX(-50%);
+}
+
+.toast button {
+  flex: none;
+  min-height: 32px;
+  padding: 4px 8px;
+  background: none;
+  border: none;
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+@media (max-width: 560px) {
+  .card { padding: 16px; }
+  .when { grid-template-columns: 1fr 1fr; }
+  .when .ghost-button { grid-column: 1 / -1; justify-self: start; }
+  .tiles { grid-template-columns: 1fr; }
+  .tile { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; }
+  .tile-label { width: 100%; }
+}
